@@ -5,8 +5,13 @@ import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.module.AppGlideModule
 import com.example.shotgame.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
+
+@GlideModule
+public final class MyAppGlideModule : AppGlideModule()
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     var flag:Boolean = false
     lateinit var job: Job
+    lateinit var elmer : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +28,14 @@ class MainActivity : AppCompatActivity() {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        GlideApp.with(this)
+            .load(R.drawable.me)
+            .circleCrop()
+            .override(800, 600)
+            .into(binding.dorncy)
+
 
         binding.img.setOnClickListener({
             if (flag){
